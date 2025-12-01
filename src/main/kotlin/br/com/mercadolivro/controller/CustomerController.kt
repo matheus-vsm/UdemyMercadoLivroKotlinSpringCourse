@@ -4,6 +4,7 @@ import br.com.mercadolivro.controller.request.PostCustomerRequest
 import br.com.mercadolivro.model.Customer
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -17,8 +18,13 @@ class CustomerController {
     val customers = mutableListOf<Customer>()
 
     @GetMapping
-    fun getCustomer(): MutableList<Customer> {
+    fun getAll(): List<Customer> {
         return customers
+    }
+
+    @GetMapping("/{id}")
+    fun getCustomer(@PathVariable id: String): Customer {
+        return customers.filter { it.id == id }.first()
     }
 
     @PostMapping
