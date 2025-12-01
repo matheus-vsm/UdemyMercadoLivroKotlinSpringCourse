@@ -14,18 +14,23 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("customers")
 class CustomerController {
 
+    val customers = mutableListOf<Customer>()
+
     @GetMapping
-    fun getCustomer(): Customer {
-        return Customer(
-            id = "1",
-            name = "John Doe",
-            email = "john@gmail.com"
-        )
+    fun getCustomer(): MutableList<Customer> {
+        return customers
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@RequestBody customer: PostCustomerRequest) {
-        println(customer)
+        val id = if (customers.isEmpty()) {
+            1
+        } else {
+            customers.last().id.toInt() + 1
+        }.toString()
+
+        customers.add(Customer(id, customer.nome, customer.email))
+        println(customers)
     }
 }
