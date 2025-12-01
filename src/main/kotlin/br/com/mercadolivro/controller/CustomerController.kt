@@ -1,7 +1,10 @@
 package br.com.mercadolivro.controller
 
+import br.com.mercadolivro.controller.request.PostCustomerRequest
 import br.com.mercadolivro.model.Customer
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -14,8 +17,12 @@ class CustomerController {
         return Customer(
             id = "1",
             name = "John Doe",
-            email = "john@gmail.com")
+            email = "john@gmail.com"
+        )
     }
 
-
+    @PostMapping
+    fun create(@RequestBody customer: PostCustomerRequest) {
+        println(customer)
+    }
 }
